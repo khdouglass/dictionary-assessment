@@ -210,7 +210,41 @@ def kids_game(names):
     good solutions here will definitely require a dictionary.
     """
 
-    return []
+    name_dict = {}
+
+    for name in names:
+        if name[0] in name_dict:
+            name_dict[name[0]].append(name)
+        else:
+            name_dict[name[0]] = [name]   
+
+    new_list = []
+
+    current_name = names[0]
+
+    new_list.append(current_name)
+
+    new_letter = current_name[len(current_name) - 1]
+
+    while True:
+        if new_letter in name_dict:
+            i = 0
+            next_name = name_dict[new_letter][i]
+
+            while next_name in new_list and i < (len(name_dict[new_letter]) - 1):
+                    i += 1
+                    next_name = name_dict[new_letter][i]
+
+            if next_name in new_list:
+                return new_list
+            else:
+                new_list.append(next_name)
+                current_name = next_name
+                new_letter = current_name[len(current_name) - 1]
+        else:
+            break
+
+    return new_list
 
 #####################################################################
 # You can ignore everything below this.
