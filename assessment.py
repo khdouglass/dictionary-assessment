@@ -29,11 +29,15 @@ def count_words(phrase):
         {'Porcupine': 1, 'do.': 1, 'porcupine': 1, 'see,': 1}
     """
 
-    word_counts = {}
-    for word in phrase.split():
-        word_counts[word] = word_counts.get(word, 0) + 1
+    word_count = {}
 
-    return word_counts
+    words = phrase.split(" ")
+
+    for word in words:
+        word_count[word] = word_count.get(word, 0) + 1 
+
+
+    return word_count
 
 
 def get_melon_price(melon_name):
@@ -57,11 +61,9 @@ def get_melon_price(melon_name):
         >>> get_melon_price('Tomato')
         'No price found'
     """
+    melons = {"Watermelon": 2.95, "Cantaloupe": 2.50, "Musk": 3.25, "Christmas": 14.25}
 
-    melon_counts = {'Watermelon': 2.95, 'Cantaloupe': 2.50, 
-                    'Musk': 3.25, 'Christmas': 14.25}
-
-    return melon_counts.get(melon_name, 'No price found')
+    return melons.get(melon_name, "No price found")
 
 
 def word_length_sorted(words):
@@ -73,42 +75,28 @@ def word_length_sorted(words):
 
     In addition to ordering the list by word length, order each
     sub-list of words alphabetically.
+
+    For example::
+
+        >>> word_length_sorted(["ok", "an", "apple", "a", "day"])
+        [(1, ['a']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
+
+        >>> word_length_sorted(["porcupine", "ok"])
+        [(2, ['ok']), (9, ['porcupine'])]
     """
 
-    #For example::
+    word_len_dict = {}
 
-        # >>> word_length_sorted(["ok", "an", "apple", "a", "day"])
-        # [(1, ['a']), (2, ['an', 'ok']), (3, ['day']), (5, ['apple'])]
-
-        # >>> word_length_sorted(["porcupine", "ok"])
-  
-
-   # new_list = {}
-
-   # my first approach below, identifying the length of each word and creating
-   # a tuple with the length and word. I attempted to use an if/else statement to 
-   # add words to the list of words corresponding to the length
-
-    # for word in words:
-    #     if len(words) in new_list:
-    #         new_list[1].append(words[i])
-    #     else: 
-    #         new_list.append((len(word), [word]))
-
-    # my next attempt creating a dictionary of lengths and words with that length.
-    # the next step would have been to create a list of tuples including the length 
-    # number and corresponding words.
-
-    # for i in range(len(words)):
-    #     length = len(words[i])
-    # if length not in new_list:
-    #     new_list[length] = [words[i]]
-    # else:
-    #     new_list[length.append(words[i])]
-
-    #return list(new_list.items)
+    for word in words:
+        if len(word) in word_len_dict:
+            word_len_dict[len(word)].append(word)
+            word_len_dict[len(word)].sort()
+        else:
+            word_len_dict[len(word)] = [word]   
 
 
+
+    return sorted(word_len_dict.items())
 
 
 def translate_to_pirate_talk(phrase):
@@ -150,6 +138,7 @@ def translate_to_pirate_talk(phrase):
         'me swabbie be not a man!'
     """
 
+
     english_to_pirate = {'sir': 'matey', 
                          'hotel': 'fleabag inn',
                          'student': 'swabbie',
@@ -164,12 +153,15 @@ def translate_to_pirate_talk(phrase):
                          'my': 'me',
                          'is': 'be'}
 
-    pirate_translation = []
+    words = phrase.split()
 
-    for word in phrase.split():
-        pirate_translation.append(english_to_pirate.get(word, word))
- 
-    return " ".join(pirate_translation)
+    translation = []
+     
+    for word in words:
+        translation.append(english_to_pirate.get(word, word))
+
+
+    return  " ".join(translation)
 
 
 def kids_game(names):
@@ -195,102 +187,30 @@ def kids_game(names):
 
     5. When you can't find an unused word to use, you're done!
        Return the list of output words.
-       """
 
-    # For example::
+    For example::
 
-    #     >>> kids_game(["bagon", "baltoy", "yamask", "starly",
-    #     ...            "nosepass", "kalob", "nicky", "booger"])
-    #     ['bagon', 'nosepass', 'starly', 'yamask', 'kalob', 'baltoy']
+        >>> kids_game(["bagon", "baltoy", "yamask", "starly",
+        ...            "nosepass", "kalob", "nicky", "booger"])
+        ['bagon', 'nosepass', 'starly', 'yamask', 'kalob', 'baltoy']
 
-    # (After "baltoy", there are no more y-words, so we end, even
-    # though "nicky" and "booger" weren't used.)
+    (After "baltoy", there are no more y-words, so we end, even
+    though "nicky" and "booger" weren't used.)
 
-    # Two more examples:
+    Two more examples:
 
-    #     >>> kids_game(["apple", "berry", "cherry"])
-    #     ['apple']
+        >>> kids_game(["apple", "berry", "cherry"])
+        ['apple']
 
-    #     >>> kids_game(["noon", "naan", "nun"])
-    #     ['noon', 'naan', 'nun']
+        >>> kids_game(["noon", "naan", "nun"])
+        ['noon', 'naan', 'nun']
 
-    """This is a tricky problem. In particular, think about how using
+    This is a tricky problem. In particular, think about how using
     a dictionary (with the super-fast lookup they provide) can help;
     good solutions here will definitely require a dictionary.
     """
 
-    # I first cretaed a dictionary of first letter keys and values were a list of
-    # words with the cooresponding first letter
-
-    # names_dict = {}
-
-    # for i in range(len(names)):
-    #     first_letter = names[i][0]
-    #     if first_letter not in names_dict:
-    #         names_dict[first_letter] = [names[i]]
-    #     else:
-    #         names_dict[first_letter].append(names[i])
-
-    # new_name_list = [names[0]]
-    # #new_name_list.append(names[0])
-    # key = names[0][len(names[0]) - 1]
-
-    # value_list = names_dict[key]
-
-    # Next I was trying identify the first value in the values list, if it 
-    # was already in our new list, it would iterate over the next values to find
-    # one that hand not yet been added to the list.
-
-    # def add_name(name):
-    #     key_index = 0
-    #     if key in names_dict:
-    #         names_list = names_dict[key]
-    #         if names_list[key_index] in new_name_list:
-    #             key_index += 1
-    #         elif names_list[key_index] not in new_name_list:
-    #             new_name_list.append(names_list[key_index])
-    #             key = name[len(next_name) - 1]
-    #             add_name(key)
-    #         else:
-    #             return
-
-
-            # names_list = names_dict[key]
-            # if names_list[key_index] in new_name_list:
-            #     key_index += 1
-            # elif names_list[key_index] not in new_name_list:
-            #     new_name_list.append(names_list[key_index])
-            #     key = name[len(next_name) - 1]
-            #     add_name(key)
-            # else:
-            #     return
-
-
-
-    
-
-    # while key in names_dict:
-    #     next_name_list = names_dict[key]
-    #     for name in next_name_list:
-    #         if name not in new_name_list:
-    #             new_name_list.append(name)
-    #             key = name[len(next_name) - 1]
-    #         else:
-    #             break
-
-    return new_name_list
-       
-
-
-        # next_names = names_dict[key]
-        # for value in names_dict[key]:
-        #     if value not in new_name_list:
-        #         next_name = names_dict[key][1]
-        #     else:
-        #         new_name_list.append(next_name)
-        #         key = next_name[len(next_name) - 1]
-    
-
+    return []
 
 #####################################################################
 # You can ignore everything below this.

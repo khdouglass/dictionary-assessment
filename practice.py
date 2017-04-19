@@ -32,7 +32,7 @@ def without_duplicates(words):
         [2, 33333, 111111]
     """
 
-    return sorted(set(words))
+    return []
 
 
 def find_unique_common_items(items1, items2):
@@ -62,7 +62,7 @@ def find_unique_common_items(items1, items2):
         [2]
     """
 
-    return list(set(items1) & set(items2))
+    return []
 
 def get_sum_zero_pairs(numbers):
     """Given list of numbers, return list of pairs summing to 0.
@@ -91,14 +91,7 @@ def get_sum_zero_pairs(numbers):
         [[-1, 1], [0, 0]]
     """
 
-
-    if nu
-
-
-    new_list = [[num, -num] for num in numbers]
-
-    return new_list
-
+    return []
 
 
 def top_chars(phrase):
